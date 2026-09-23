@@ -1,0 +1,15 @@
+{
+  "version": 0.1,
+  "name": "cubeMaterial",
+  "shaders": {
+    "vertex": "shaders/modelVertexShader.vert",
+    "fragment": "shaders/modelFragmentShader.frag"
+  },
+  "textures": {
+    "diffuse": "",
+    "normal": "",
+    "roughness": "",
+    "specular": "",
+    "ambient": ""
+  }
+}

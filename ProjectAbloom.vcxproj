@@ -193,6 +193,8 @@
     <ClInclude Include="src\sceneManager\scene_loader.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="assets\materials\backpackMaterial.json" />
+    <None Include="assets\materials\cubeMaterial.json" />
     <None Include="assets\shaders\cubeVertexShader.vert" />
     <None Include="assets\shaders\lightingShader.frag" />
     <None Include="assets\shaders\lightSourceShader.frag" />
