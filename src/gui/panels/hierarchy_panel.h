@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../gui_panel.h"
-#include "../../headers/scene.h"
+#include "../../sceneManager/scene.h"
 #include <vector>
 #include <memory>
 #include <string>

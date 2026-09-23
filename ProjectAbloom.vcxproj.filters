@@ -51,6 +51,15 @@
     <ClCompile Include="src\renderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\sceneManager\scene_loader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\sceneManager\scene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\sceneManager\scene_manager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="headers\shader.h">
@@ -80,10 +89,10 @@
     <ClInclude Include="src\gui\panels\inspector_panel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\headers\scene.h">
+    <ClInclude Include="src\sceneManager\scene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\headers\scene_object.h">
+    <ClInclude Include="src\sceneManager\scene_object.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\gui\editor_context.h">
@@ -117,6 +126,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\headers\renderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sceneManager\scene_loader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sceneManager\scene_manager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

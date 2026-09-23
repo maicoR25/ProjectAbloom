@@ -14,8 +14,8 @@
 #include "headers/shader.h"
 #include "headers/camera.h"
 #include "headers/model.h"
-#include "headers/scene_object.h"
-#include "headers/scene.h"
+#include "sceneManager/scene_manager.h"
+#include "sceneManager/scene.h"
 #include "gui/gui_manager.h"
 #include "gui/panels/inspector_panel.h"
 #include "gui/panels/hierarchy_panel.h"
@@ -71,37 +71,30 @@ int main() {
 	stbi_set_flip_vertically_on_load(true);
 
 	// Compile Shaders
-	Shader cubeShader("assets/shaders/cubeVertexShader.vert", "assets/shaders/lightingShader.frag");		
-	cubeShader.bindUniformBlock("CameraData", 0);
-	Shader lightShader("assets/shaders/simpleVertexShader.vert", "assets/shaders/lightSourceShader.frag");
-	Shader modelShader("assets/shaders/modelVertexShader.vert", "assets/shaders/modelFragmentShader.frag");
-	modelShader.bindUniformBlock("CameraData", 0);
 
 	//Initialize Models
-	std::shared_ptr backpackModel = std::make_shared<Model>("assets/models/backpack/backpack.obj");
-	std::shared_ptr cubeModel = std::make_shared<Model>("assets/models/cube.obj");
+	
+	SceneManager sceneManager;
+	sceneManager.loadSceneFromFile("assets/scenes/example_scene1.json");
+	
 
-	Scene scene;
-	//scene.addObject(std::make_unique<SceneObject>(backpackModel), &modelShader);
-	scene.addObject(std::make_unique<SceneObject>(cubeModel), &cubeShader);
+	//for (int i = 1; i < 10; i++) {
+	//	scene.addObject(std::make_unique<SceneObject>(backpackModel), &modelShader);
+	//	if (auto* backpack = scene.getObjectByID(i)) {
+	//		backpack->transform.position = glm::vec3(0.0f, 0.0f, -5.0f + i * 2);
+	//		backpack->name = std::format("Backpack {0}", i);
+	//	}
+	//}
 
-	for (int i = 1; i < 10; i++) {
-		scene.addObject(std::make_unique<SceneObject>(backpackModel), &modelShader);
-		if (auto* backpack = scene.getObjectByID(i)) {
-			backpack->transform.position = glm::vec3(0.0f, 0.0f, -5.0f + i * 2);
-			backpack->name = std::format("Backpack {0}", i);
-		}
-	}
-
-	if (auto* cube = scene.getObjectByID(0)) {
-		cube->transform.position = glm::vec3(2.0f, 0.0f, 0.0f);
-		cube->name = std::string("Cube");
-	}
+	//if (auto* cube = scene.getObjectByID(0)) {
+	//	cube->transform.position = glm::vec3(2.0f, 0.0f, 0.0f);
+	//	cube->name = std::string("Cube");
+	//}
 
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	
 	GUIManager guiManager(window);
-	guiManager.SetScene(&scene);
+	//guiManager.SetScene(&scene);
 	guiManager.AddPanel(std::make_unique<InspectorPanel>());
 	guiManager.AddPanel(std::make_unique<HierarchyPanel>());
 
@@ -131,20 +124,20 @@ int main() {
 		CameraData cameraData(projection, view);
 		renderer.bindCameraUBOData(cameraUBO, cameraData);
 
-		cubeShader.use();
-		cubeShader.setVec3("objectColor", 0.2f, 1.5f, 0.0f);
-		cubeShader.setVec3("lightColor", 1.0f, 1.0f, 1.0f);
-		cubeShader.setVec3("material.ambient", 0.0f, 0.5f, 0.31f);
-		cubeShader.setVec3("material.diffuse", 1.0f, 0.5f, 0.31f);
-		cubeShader.setVec3("material.specular", 0.5f, 0.5f, 0.5f);
-		cubeShader.setFloat("material.shininess", 32.0f);
-		cubeShader.setVec3("light.ambient", 0.2f, 0.2f, 0.2f);
-		cubeShader.setVec3("light.diffuse", 0.5f, 0.5f, 0.5f); // darken diffuse light a bit
-		cubeShader.setVec3("light.specular", 1.0f, 1.0f, 1.0f);
-		cubeShader.setVec3("light.position", 1.0f, 2.0f, 1.0f);
-		cubeShader.setVec3("viewPos", camera.Position);
+		//cubeShader.use();
+		//cubeShader.setVec3("objectColor", 0.2f, 1.5f, 0.0f);
+		//cubeShader.setVec3("lightColor", 1.0f, 1.0f, 1.0f);
+		//cubeShader.setVec3("material.ambient", 0.0f, 0.5f, 0.31f);
+		//cubeShader.setVec3("material.diffuse", 1.0f, 0.5f, 0.31f);
+		//cubeShader.setVec3("material.specular", 0.5f, 0.5f, 0.5f);
+		//cubeShader.setFloat("material.shininess", 32.0f);
+		//cubeShader.setVec3("light.ambient", 0.2f, 0.2f, 0.2f);
+		//cubeShader.setVec3("light.diffuse", 0.5f, 0.5f, 0.5f); // darken diffuse light a bit
+		//cubeShader.setVec3("light.specular", 1.0f, 1.0f, 1.0f);
+		//cubeShader.setVec3("light.position", 1.0f, 2.0f, 1.0f);
+		//cubeShader.setVec3("viewPos", camera.Position);
 
-		scene.drawScene();
+		//scene.drawScene();
 
 		guiManager.DrawGUI();
 
