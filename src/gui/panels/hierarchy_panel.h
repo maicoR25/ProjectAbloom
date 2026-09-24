@@ -1,10 +1,12 @@
 #pragma once
 
-#include "../gui_panel.h"
-#include "../../sceneManager/scene.h"
+
 #include <vector>
 #include <memory>
 #include <string>
+#include "../gui_panel.h"
+#include "../../sceneManager/scene.h"
+#include "../../editor_context.h"
 
 class Scene;
 class SceneObject;

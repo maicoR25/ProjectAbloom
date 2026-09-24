@@ -8,12 +8,14 @@
 #include "imgui/backends/imgui_impl_glfw.h"
 #include "imgui/backends/imgui_impl_opengl3.h"
 #include "gui_panel.h"
-#include "editor_context.h"
+#include "../editor_context.h"
+#include "../engine_context.h"
 
 class GUIManager {
 public:
 	Scene* m_activeScene = nullptr;
-	EditorContext m_context;
+	EditorContext m_editorContext;
+	EngineContext* m_engineContext = nullptr;
 	
 	// Initializes the ImGUI context
 	GUIManager(GLFWwindow* window) {
@@ -37,7 +39,7 @@ public:
 	// Iterates through the GUIPanels and the lambdaPanels vectors and draws them to the screen
 	void DrawGUI() {
 		for (unsigned int i = 0; i < m_guiPanels.size(); i++) {
-			m_guiPanels[i]->draw(m_activeScene, m_context);
+			m_guiPanels[i]->draw(m_activeScene, m_editorContext);
 		}
 		for (unsigned int i = 0; i < m_lambdaPanels.size(); i++) {
 			m_lambdaPanels[i]();
@@ -63,8 +65,17 @@ public:
 		m_lambdaPanels.push_back(renderCallback);
 	}
 
-	void SetScene(Scene* scene) {
-		m_activeScene = scene;
+	//void SetScene(Scene* scene) {
+	//	if (scene == nullptr) {
+	//		m_activeScene = NULL;
+	//	}
+	//	else {
+	//		m_activeScene = scene;
+	//	}
+	//}
+
+	void SetEngine(EngineContext* engineContext) {
+		m_engineContext = engineContext;
 	}
 
 	void DrawDemoWindow() {

@@ -1,51 +1,26 @@
 {
-  "version": 0.1,
+  "version": 1,
   "scene_name": "example_scene",
   "objects": [
     {
       "name": "cube",
       "transform": {
-        "position": [
-          0.0,
-          0.0,
-          0.0
-        ],
-        "scale": [
-          1,
-          1,
-          1
-        ],
-        "rotation": [
-          0,
-          0,
-          0
-        ]
+        "position": [ 0.0, 0.0, 0.0 ],
+        "scale": [ 1, 1, 1 ],
+        "rotation": [ 0, 0, 0 ]
       },
       "model": "cube.obj",
-      "material": ""
+      "material": "cubeMaterial.json"
     },
-
     {
       "name": "backpack",
       "transform": {
-        "position": [
-          1.0,
-          0.0,
-          1.0
-        ],
-        "scale": [
-          1,
-          1,
-          1
-        ],
-        "rotation": [
-          0,
-          0,
-          0
-        ]
+        "position": [ 1.0, 0.0, 1.0 ],
+        "scale": [ 1, 1, 1 ],
+        "rotation": [ 0, 0, 0 ]
       },
       "model": "backpack.obj",
-      "material": ""
+      "material": "backpackMaterial.json"
     }
   ]
 }

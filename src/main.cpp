@@ -10,18 +10,20 @@
 #include <format>
 #include <memory>
 
+#include "engine_context.h"
 #include "headers/renderer.h"
 #include "headers/shader.h"
 #include "headers/camera.h"
 #include "headers/model.h"
 #include "sceneManager/scene_manager.h"
 #include "sceneManager/scene.h"
+#include "assetManager/asset_manager.h"
 #include "gui/gui_manager.h"
 #include "gui/panels/inspector_panel.h"
 #include "gui/panels/hierarchy_panel.h"
 
-const int INITAIL_WINDOW_WIDTH = 800;
-const int INITAIL_WINDOW_HEIGHT = 600;
+const int INITIAL_WINDOW_WIDTH = 800;
+const int INITIAL_WINDOW_HEIGHT = 600;
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow* window);
@@ -29,8 +31,8 @@ void mouse_callBack(GLFWwindow* window, double xpos, double ypos);
 void scroll_callBack(GLFWwindow* window, double xOffSet, double yOffSet);
 void key_callBack(GLFWwindow* window, int key, int scanCode, int action, int mods);
 
-int windowWidth = INITAIL_WINDOW_WIDTH;
-int windowHeight = INITAIL_WINDOW_HEIGHT;
+int windowWidth = INITIAL_WINDOW_WIDTH;
+int windowHeight = INITIAL_WINDOW_HEIGHT;
 float deltaTime = 0.0f;
 float lastFrame = 0.0f;
 float lastX;
@@ -47,7 +49,7 @@ int main() {
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 
-	GLFWwindow* window = glfwCreateWindow(INITAIL_WINDOW_WIDTH, INITAIL_WINDOW_HEIGHT, "ProjectAbloom", NULL, NULL);
+	GLFWwindow* window = glfwCreateWindow(INITIAL_WINDOW_WIDTH, INITIAL_WINDOW_HEIGHT, "ProjectAbloom", NULL, NULL);
 	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 	glfwSetCursorPosCallback(window, mouse_callBack);
 	glfwSetScrollCallback(window, scroll_callBack);
@@ -70,45 +72,32 @@ int main() {
 	// Setup stbi flags
 	stbi_set_flip_vertically_on_load(true);
 
-	// Compile Shaders
-
-	//Initialize Models
-	
-	SceneManager sceneManager;
-	sceneManager.loadSceneFromFile("assets/scenes/example_scene1.json");
-	
-
-	//for (int i = 1; i < 10; i++) {
-	//	scene.addObject(std::make_unique<SceneObject>(backpackModel), &modelShader);
-	//	if (auto* backpack = scene.getObjectByID(i)) {
-	//		backpack->transform.position = glm::vec3(0.0f, 0.0f, -5.0f + i * 2);
-	//		backpack->name = std::format("Backpack {0}", i);
-	//	}
-	//}
-
-	//if (auto* cube = scene.getObjectByID(0)) {
-	//	cube->transform.position = glm::vec3(2.0f, 0.0f, 0.0f);
-	//	cube->name = std::string("Cube");
-	//}
-
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	
+	
+	// Initialize engine
+	Renderer renderer;
+	AssetManager assetManager;
+	SceneManager sceneManager;
+
+	EngineContext engineContext(&renderer, &assetManager, &sceneManager);
+
+	renderer.initRenderer(INITIAL_WINDOW_WIDTH, INITIAL_WINDOW_HEIGHT);
+	unsigned int cameraUBO = renderer.createCameraUBO();
+	std::unique_ptr<Scene> currentScene = sceneManager.loadSceneFromFile("assets/scenes/example_scene1.json");
+
+	// Initialize Editor tools
 	GUIManager guiManager(window);
-	//guiManager.SetScene(&scene);
+	guiManager.SetEngine(&engineContext);
 	guiManager.AddPanel(std::make_unique<InspectorPanel>());
 	guiManager.AddPanel(std::make_unique<HierarchyPanel>());
-
-	// Generate UBO
-	Renderer renderer;
-	renderer.initRenderer(INITAIL_WINDOW_WIDTH, INITAIL_WINDOW_HEIGHT);
-	unsigned int cameraUBO = renderer.createCameraUBO();
 	
 
 	while (!glfwWindowShouldClose(window)) {
 		glfwPollEvents();
 		processInput(window);
 
-		guiManager.CreateNewFrame();
+		//guiManager.CreateNewFrame();
 		renderer.clearFrame(glm::vec4(0.0f));
 		
 		glfwGetWindowSize(window, &windowWidth, &windowHeight);
@@ -121,25 +110,19 @@ int main() {
 		glm::mat4 view = camera.getViewMatrix();
 		glm::mat4 projection = glm::perspective(glm::radians(fov), ((float)windowWidth / windowHeight), 0.1f, 100.0f);
 
-		CameraData cameraData(projection, view);
+		CameraData cameraData(projection, view, camera.Position);
 		renderer.bindCameraUBOData(cameraUBO, cameraData);
 
 		//cubeShader.use();
-		//cubeShader.setVec3("objectColor", 0.2f, 1.5f, 0.0f);
 		//cubeShader.setVec3("lightColor", 1.0f, 1.0f, 1.0f);
-		//cubeShader.setVec3("material.ambient", 0.0f, 0.5f, 0.31f);
-		//cubeShader.setVec3("material.diffuse", 1.0f, 0.5f, 0.31f);
-		//cubeShader.setVec3("material.specular", 0.5f, 0.5f, 0.5f);
-		//cubeShader.setFloat("material.shininess", 32.0f);
 		//cubeShader.setVec3("light.ambient", 0.2f, 0.2f, 0.2f);
 		//cubeShader.setVec3("light.diffuse", 0.5f, 0.5f, 0.5f); // darken diffuse light a bit
 		//cubeShader.setVec3("light.specular", 1.0f, 1.0f, 1.0f);
 		//cubeShader.setVec3("light.position", 1.0f, 2.0f, 1.0f);
-		//cubeShader.setVec3("viewPos", camera.Position);
 
 		//scene.drawScene();
 
-		guiManager.DrawGUI();
+		//guiManager.DrawGUI();
 
 		glfwSwapBuffers(window);
 	}

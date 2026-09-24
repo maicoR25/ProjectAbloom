@@ -157,6 +157,7 @@
     <ClCompile Include="external\includes\imgui\imgui_draw.cpp" />
     <ClCompile Include="external\includes\imgui\imgui_tables.cpp" />
     <ClCompile Include="external\includes\imgui\imgui_widgets.cpp" />
+    <ClCompile Include="src\assetManager\asset_manager.cpp" />
     <ClCompile Include="src\glad.c" />
     <ClCompile Include="src\gui\panels\hierarchy_panel.h" />
     <ClCompile Include="src\main.cpp" />
@@ -178,10 +179,13 @@
     <ClInclude Include="external\includes\imgui\imstb_truetype.h" />
     <ClInclude Include="headers\shader.h" />
     <ClInclude Include="headers\stb_image.h" />
-    <ClInclude Include="src\gui\editor_context.h" />
+    <ClInclude Include="src\assetManager\asset_manager.h" />
+    <ClInclude Include="src\engine_context.h" />
+    <ClInclude Include="src\editor_context.h" />
     <ClInclude Include="src\gui\gui_manager.h" />
     <ClInclude Include="src\gui\gui_panel.h" />
     <ClInclude Include="src\gui\panels\inspector_panel.h" />
+    <ClInclude Include="src\gui\panels\scene_panel.h" />
     <ClInclude Include="src\headers\camera.h" />
     <ClInclude Include="src\headers\mesh.h" />
     <ClInclude Include="src\headers\model.h" />

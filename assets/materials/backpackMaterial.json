@@ -1,15 +1,15 @@
 {
-  "version": 0.1,
+  "version": 1,
   "name": "backpackMaterial",
   "shaders": {
     "vertex": "shaders/modelVertexShader.vert",
     "fragment": "shaders/modelFragmentShader.frag"
   },
   "textures": {
-    "diffuse": "",
-    "normal": "",
-    "roughness": "",
-    "specular": "",
-    "ambient": ""
+    "diffuse": "textures/backpack/diffuse.jpg",
+    "normal": "textures/backpack/normal.png",
+    "roughness": "textures/backpack/roughness.jpg",
+    "specular": "textures/backpack/specular.jpg",
+    "ambient": "textures/backpack/ao.jpg"
   }
 }

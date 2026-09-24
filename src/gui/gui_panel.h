@@ -1,7 +1,7 @@
 #pragma once
 
 #include "imgui/imgui.h"
-#include "editor_context.h"
+#include "../editor_context.h"
 
 class Scene;
 
