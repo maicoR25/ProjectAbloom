@@ -86,18 +86,18 @@ int main() {
 	unsigned int cameraUBO = renderer.createCameraUBO();
 	std::unique_ptr<Scene> currentScene = sceneManager.loadSceneFromFile("assets/scenes/example_scene1.json");
 
-	// Initialize Editor tools
+	//// Initialize Editor tools
 	GUIManager guiManager(window);
-	guiManager.SetEngine(&engineContext);
-	guiManager.AddPanel(std::make_unique<InspectorPanel>());
-	guiManager.AddPanel(std::make_unique<HierarchyPanel>());
+	//guiManager.SetEngine(&engineContext);
+	//guiManager.AddPanel(std::make_unique<InspectorPanel>());
+	//guiManager.AddPanel(std::make_unique<HierarchyPanel>());
 	
 
 	while (!glfwWindowShouldClose(window)) {
 		glfwPollEvents();
 		processInput(window);
 
-		//guiManager.CreateNewFrame();
+		guiManager.CreateNewFrame();
 		renderer.clearFrame(glm::vec4(0.0f));
 		
 		glfwGetWindowSize(window, &windowWidth, &windowHeight);
@@ -114,15 +114,10 @@ int main() {
 		renderer.bindCameraUBOData(cameraUBO, cameraData);
 
 		//cubeShader.use();
-		//cubeShader.setVec3("lightColor", 1.0f, 1.0f, 1.0f);
-		//cubeShader.setVec3("light.ambient", 0.2f, 0.2f, 0.2f);
-		//cubeShader.setVec3("light.diffuse", 0.5f, 0.5f, 0.5f); // darken diffuse light a bit
-		//cubeShader.setVec3("light.specular", 1.0f, 1.0f, 1.0f);
-		//cubeShader.setVec3("light.position", 1.0f, 2.0f, 1.0f);
 
 		//scene.drawScene();
-
-		//guiManager.DrawGUI();
+		guiManager.DrawDemoWindow();
+		guiManager.DrawGUI();
 
 		glfwSwapBuffers(window);
 	}
