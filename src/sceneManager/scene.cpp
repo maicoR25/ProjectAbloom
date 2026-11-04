@@ -4,6 +4,8 @@
 #include "scene_object.h"
 #include "scene.h"
 
+std::string sceneName = "scene";
+
 void Scene::addObject(std::unique_ptr<SceneObject> object, Shader* shader) {
 	SceneObject* objPtr = object.get();
 	Shader* targetShader = shader;
