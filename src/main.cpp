@@ -84,7 +84,7 @@ int main() {
 
 	renderer.initRenderer(INITIAL_WINDOW_WIDTH, INITIAL_WINDOW_HEIGHT);
 	unsigned int cameraUBO = renderer.createCameraUBO();
-	std::unique_ptr<Scene> currentScene = sceneManager.loadSceneFromFile("assets/scenes/example_scene1.json");
+	Scene* currentScene = sceneManager.loadSceneFromFile("assets/scenes/example_scene1.json");
 
 	// Initialize Editor tools
 	GUIManager guiManager(window);
