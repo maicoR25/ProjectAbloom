@@ -14,13 +14,15 @@ class SceneObject {
 public:
 	const unsigned int id;
 	std::string name = "Scene Object";
+
 	struct Transform {
 		glm::vec3 position = glm::vec3(0.0f);
 		glm::quat rotation;
 		glm::vec3 scale = glm::vec3(1.0f, 1.0f, 1.0f);
 	} transform;
 
-	SceneObject(std::shared_ptr<Model> model) : id(nextID++) {
+	SceneObject(std::string objectName, std::shared_ptr<Model> model) : id(nextID++) {
+		name = objectName;
 		objectModel = model;
 	}
 

@@ -81,6 +81,7 @@ int main() {
 	SceneManager sceneManager;
 
 	EngineContext engineContext(&renderer, &assetManager, &sceneManager);
+	sceneManager.setEngineContext(&engineContext);
 
 	renderer.initRenderer(INITIAL_WINDOW_WIDTH, INITIAL_WINDOW_HEIGHT);
 	unsigned int cameraUBO = renderer.createCameraUBO();
