@@ -20,6 +20,14 @@ public:
 	
 	static std::shared_ptr<Material> createMaterial(Shader *shader, const MaterialProperties *properties);
 	
+	Shader* getShader() const {
+		return shader;
+	}
+
+	void bind() {
+		shader->use();
+	}
+
 private:
 	Shader* shader = nullptr;
 	MaterialProperties properties;

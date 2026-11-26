@@ -7,6 +7,8 @@
 #include <glm/gtc/type_ptr.hpp>
 
 #include "../headers/model.h"
+#include "../assetManager/material.h"
+
 /**
 * 
 */
@@ -18,21 +20,31 @@ public:
 	struct Transform {
 		glm::vec3 position = glm::vec3(0.0f);
 		glm::quat rotation;
-		glm::vec3 scale = glm::vec3(1.0f, 1.0f, 1.0f);
+		glm::vec3 scale = glm::vec3(1.0f, 1.0f, 1.0f);	
 	} transform;
 
-	SceneObject(std::string objectName, std::shared_ptr<Model> model) : id(nextID++) {
+	SceneObject(std::string objectName, std::shared_ptr<Model> model, std::shared_ptr<Material> material) : id(nextID++) {
 		name = objectName;
 		objectModel = model;
+		objectMaterial = material;
 	}
 
-	void Draw(Shader& shader) {
-		shader.setMat4("model", modelMatrix());
-		objectModel->Draw(shader);
+	void Draw() {
+		objectMaterial->getShader()->setMat4("model", modelMatrix());
+		objectModel->Draw(*objectMaterial->getShader());
+	}
+
+	std::shared_ptr<Model> getModel() {
+		return objectModel;
+	}
+
+	std::shared_ptr<Material> getMaterial() {
+		return objectMaterial;
 	}
 
 private:
 	std::shared_ptr<Model> objectModel;
+	std::shared_ptr<Material> objectMaterial;
 	inline static unsigned int nextID = 0;
 
 	glm::mat4 modelMatrix() {

@@ -19,7 +19,7 @@ void Scene::drawScene() {
 		currentShader->use();
 
 		for (SceneObject* obj : shaderObjects) {
-			obj->Draw(*currentShader);
+			obj->Draw();
 		}
 	}
 }
